@@ -1,0 +1,5 @@
+{
+  "BentoML API": {
+    "publicPort": 3000
+  }
+}

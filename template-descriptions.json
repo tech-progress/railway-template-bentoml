@@ -1,0 +1,6 @@
+{
+  "BentoML API": {
+    "PORT": "Railway HTTP routing port used by the BentoML server.",
+    "BENTOML_DO_NOT_TRACK": "Disables BentoML's anonymous framework usage telemetry."
+  }
+}
