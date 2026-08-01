@@ -22,6 +22,7 @@ variables="$(jq -nc --argjson draft "${draft}" --argjson graph "${graph}" \
     .services[$service.key].source.branch = $desired[$service.value.name].source.branch |
     .services[$service.key].source.rootDirectory = $desired[$service.value.name].source.rootDirectory |
     .services[$service.key].build = ((.services[$service.key].build // {}) + $desired[$service.value.name].build) |
+    .services[$service.key].deploy.startCommand = ($desired[$service.value.name].deploy.startCommand // null) |
     .services[$service.key].deploy.healthcheckPath = ($desired[$service.value.name].deploy.healthcheckPath // null) |
     .services[$service.key].deploy.healthcheckTimeout = ($desired[$service.value.name].deploy.healthcheckTimeout // null) |
     reduce (($defaults[0][$service.value.name] // {}) | to_entries[]) as $variable (.;
@@ -34,4 +35,11 @@ variables="$(jq -nc --argjson draft "${draft}" --argjson graph "${graph}" \
 request="$(jq -nc --argjson variables "${variables}" --arg query 'mutation UpdateDraft($id: String!, $input: TemplateUpsertConfigInput!) { templateUpsertConfig(id: $id, input: $input) { id code } }' '{query:$query,variables:$variables}')"
 response="$(curl --compressed --fail --silent --show-error https://backboard.railway.com/graphql/internal --header "Authorization: Bearer ${railway_access_token}" --header 'Content-Type: application/json' --data-binary "${request}")"
 jq -e '.data.templateUpsertConfig.id != null and ((.errors // []) | length == 0)' <<<"${response}" >/dev/null
+
+settings_request="$(jq -nc --arg id "${template_id}" --arg workspaceId "${workspace_id}" --arg query '
+  mutation RenameDraft($id: String!, $input: TemplateUpsertSettingsInput!) {
+    templateUpsertSettings(id: $id, input: $input) { id name }
+  }' '{query:$query,variables:{id:$id,input:{name:"BentoML API starter",workspaceId:$workspaceId}}}')"
+settings_response="$(curl --compressed --fail --silent --show-error https://backboard.railway.com/graphql/internal --header "Authorization: Bearer ${railway_access_token}" --header 'Content-Type: application/json' --data-binary "${settings_request}")"
+jq -e '.data.templateUpsertSettings.name == "BentoML API starter" and ((.errors // []) | length == 0)' <<<"${settings_response}" >/dev/null
 echo "Restored BentoML template ${template_id} source, defaults, descriptions, health check, and networking."

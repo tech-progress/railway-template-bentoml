@@ -1,6 +1,6 @@
 # BentoML API starter on Railway
 
-This template deploys a source-backed BentoML `1.4.39` inference API with a tiny deterministic CPU model. Python dependencies are locked, build images are pinned by digest, the process runs as a non-root user, and the current template release is `v1.0.0`.
+This template deploys a source-backed BentoML `1.4.39` inference API with a tiny deterministic CPU model. Python dependencies are locked, build images are pinned by digest, the process runs as a non-root user, and the current template release is `v1.0.1`.
 
 ## Deploy on Railway
 
@@ -15,3 +15,5 @@ Send `{"text":"The deployment is reliable and excellent."}` to `/classify` for o
 ## Operating boundary
 
 The service uses one worker and no persistent volume because its model ships with the source. Replacing it with a downloaded or trained model may require a volume, more memory, longer health-check timeouts, or external object storage; measure that concrete workload before changing the topology.
+
+The Railway configuration points at `tech-progress/railway-template-bentoml` on `release-v1`. Fork maintainers must change that source in `.railway/railway.ts`, create the same release branch in their repository, and authorize Railway to access it before applying the configuration.

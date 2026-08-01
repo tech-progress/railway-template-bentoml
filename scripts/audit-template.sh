@@ -23,7 +23,7 @@ done
 for field in builder dockerfilePath; do
   [[ "$(jq -r --arg field "${field}" '.build[$field]' <<<"${actual}")" == "$(jq -r --arg field "${field}" '.build[$field]' <<<"${desired}")" ]] || failures=$((failures + 1))
 done
-for field in healthcheckPath healthcheckTimeout; do
+for field in startCommand healthcheckPath healthcheckTimeout; do
   [[ "$(jq -r --arg field "${field}" '.deploy[$field] // ""' <<<"${actual}")" == "$(jq -r --arg field "${field}" '.deploy[$field] // ""' <<<"${desired}")" ]] || failures=$((failures + 1))
 done
 while IFS= read -r variable; do
