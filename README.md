@@ -2,6 +2,8 @@
 
 This template deploys a source-backed BentoML `1.4.39` inference API with a tiny deterministic CPU model. Python dependencies are locked, build images are pinned by digest, the process runs as a non-root user, and the current template release is `v1.0.1`.
 
+Upstream project: [BentoML](https://bentoml.com).
+
 ## Deploy on Railway
 
 Deploy the template, wait for `/readyz` to pass, then open the generated service domain. The root page provides BentoML's API explorer, while `POST /classify` and `POST /classify_batch` provide typed inference endpoints.
