@@ -1,8 +1,10 @@
 # BentoML API starter on Railway
 
-This template deploys a source-backed BentoML `1.4.39` inference API with a tiny deterministic CPU model. Python dependencies are locked, build images are pinned by digest, the process runs as a non-root user, and the current template release is `v1.0.1`.
+This template deploys a source-backed BentoML `1.4.39` inference API with a tiny deterministic CPU model. Python dependencies are locked, build images are pinned by digest, the process runs as a non-root user, and the current template release is `v1.0.2`.
 
 Upstream project: [BentoML](https://bentoml.com).
+
+The build uses Python `3.12.15` on Debian Trixie and uv `0.12.22`; both publisher images are pinned by digest. Regenerate or check `uv.lock` with uv `0.12.22`, keeping BentoML at `1.4.39`.
 
 ## Deploy on Railway
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.2] - 2026-10-02
+
+- Retain BentoML 1.4.39 and refresh uv to 0.12.22 and Python to 3.12.15 with verified immutable image digests.
+- Explicitly retain Debian Trixie, the distribution behind the previous Python slim image.
+- Regenerate and check the Python dependency lock with uv 0.12.22 without upgrading the framework.
+
 ## [1.0.1] - 2026-08-01
 
 - Clear the generator seed's start command when restoring a source-backed draft.

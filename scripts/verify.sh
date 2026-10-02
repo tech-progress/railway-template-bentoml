@@ -58,8 +58,8 @@ jq -e --slurpfile descriptions "${template_root}/template-descriptions.json" '
 grep -Fq 'name = "bentoml"' "${template_root}/uv.lock"
 grep -Fq 'version = "1.4.39"' "${template_root}/uv.lock"
 for pin in \
-  cda9608307dbbfc1769f3b6b1f9abf5f1360de0be720f544d29a7ae2863c47ef \
-  47ae396f09c1303b8653019811a8498470603d7ffefc29cb07c88f1f8cb3d19f; do
+  'ghcr.io/astral-sh/uv:0.12.22@sha256:f513a91fc62fe7c17567eee97230dd198e43edb8a9fbecca843714a4358fe1bc' \
+  'python:3.12.15-slim-trixie@sha256:29113dcae7aad06daa8e95260fa09f27d62be33b9687ea3774f771d601a02256'; do
   grep -Fq "${pin}" "${template_root}/Dockerfile"
 done
 
